@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DataPC-Android</string>
+    <string name="setting">Settings</string>
+    <string name="addpc">Add computer</string>
+</resources>
