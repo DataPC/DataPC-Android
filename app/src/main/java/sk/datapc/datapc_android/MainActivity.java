@@ -51,9 +51,13 @@ public class MainActivity extends AppCompatActivity {
                 String server = Configuration.getConfigValue(this, "server_url");
                 String fromServer = getHTML(server + "getPCInfo?id="+PcID);
 
+                PCDataType computer = new PCDataType(fromServer);
 
-                //  TextView textView = findViewById(R.id.textView);
-                //  textView.setText(fromServer);
+                TextView textView = findViewById(R.id.textView);
+                TextView textView2 = findViewById(R.id.textView2);
+                textView.setText(computer.getLocation());
+                textView2.setText(String.valueOf(computer.getPCid()));
+
                 Snackbar.make(getWindow().getDecorView(), fromServer, Snackbar.LENGTH_LONG).show();
 
                 //Intent i = new Intent(this, PCDetailActivity.class);

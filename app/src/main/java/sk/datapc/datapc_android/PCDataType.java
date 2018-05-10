@@ -37,4 +37,15 @@ public class PCDataType {
 
     }
 
+    public int getPCid() {
+        return PCid;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public List<ComponentDataType> getComponents() {
+        return components;
+    }
 }
