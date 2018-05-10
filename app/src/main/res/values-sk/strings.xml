@@ -2,4 +2,5 @@
     <string name="app_name">DataPC-Android</string>
     <string name="setting">Nastavenie</string>
     <string name="addpc">Prida\u0165 po\u010d\u00edta\u010d</string>
+    <string name="result_text_default">Zamerajte prosím kameru na skenovaný kód</string>
 </resources>
