@@ -2,6 +2,7 @@ package sk.datapc.datapc_android;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +11,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 view1 = view;
                 startActivityForResult(new Intent(MainActivity.this, BarcodeScan.class), request);
             }
@@ -47,8 +48,17 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == request) {
             if (resultCode == RESULT_OK) {
                 String PcID = data.getStringExtra("PcID");
+                String server = Configuration.getConfigValue(this, "server_url");
+                String fromServer = getHTML(server + "getPCInfo?id="+PcID);
 
-                String fromServerv = executePost("", PcID);
+
+                //  TextView textView = findViewById(R.id.textView);
+                //  textView.setText(fromServer);
+                Snackbar.make(getWindow().getDecorView(), fromServer, Snackbar.LENGTH_LONG).show();
+
+                //Intent i = new Intent(this, PCDetailActivity.class);
+                //i.putExtra("json", fromServer);
+                //startActivity(i);
             }
         }
     }
@@ -69,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.add_pc) {
-
             Snackbar.make(getWindow().getDecorView(), "vypis textu nastal", Snackbar.LENGTH_LONG).show();
             return true;
         }
@@ -77,48 +86,39 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static String executePost(String targetURL, String urlParameters) {
-        HttpURLConnection connection = null;
+    public String getHTML(String urlToRead) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
+        StringBuilder result = new StringBuilder();
+        URL url = null;
         try {
-            //Create connection
-            URL url = new URL(targetURL);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type",
-                    "application/x-www-form-urlencoded");
+            url = new URL(urlToRead);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
 
-            connection.setRequestProperty("Content-Length",
-                    Integer.toString(urlParameters.getBytes().length));
-            connection.setRequestProperty("Content-Language", "en-US");
-
-            connection.setUseCaches(false);
-            connection.setDoOutput(true);
-
-            //Send request
-            DataOutputStream wr = new DataOutputStream(
-                    connection.getOutputStream());
-            wr.writeBytes(urlParameters);
-            wr.close();
-
-            //Get Response
-            InputStream is = connection.getInputStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = rd.readLine()) != null) {
-                response.append(line);
-                response.append('\r');
+                result.append(line);
             }
+
             rd.close();
-            return response.toString();
-        } catch (Exception e) {
+            return result.toString();
+        } catch (MalformedURLException e) {
+            //TODO Zalogovat vynimku
             e.printStackTrace();
-            return null;
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
+            //Snackbar.make(getWindow().getDecorView(), "malformed", Snackbar.LENGTH_LONG).show();
+        } catch (ProtocolException e) {
+            //TODO Zalogovat vynimku
+            e.printStackTrace();
+            //Snackbar.make(getWindow().getDecorView(), "protocol", Snackbar.LENGTH_LONG).show();
+        } catch (IOException e) {
+            //TODO Zalogovat vynimku
+            e.printStackTrace();
+            //Snackbar.make(getWindow().getDecorView(), "io", Snackbar.LENGTH_LONG).show();
         }
+
+        return null;
     }
 }
