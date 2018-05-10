@@ -5,4 +5,5 @@
     <string name="result_text_default">Zamerajte prosím kameru na skenovaný kód</string>
     <string name="location">Umiestnenie: </string>
     <string name="PCid">ID po\u010d\u00edta\u010da: </string>
+    <string name="components">Komponenty: </string>
 </resources>

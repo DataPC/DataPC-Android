@@ -102,7 +102,7 @@ public class BarcodeScan extends AppCompatActivity {
                         @Override
                         public void run() {
                             Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(1000);
+                            vibrator.vibrate(300);
                             txtResult.setText(qrcode.valueAt(0).displayValue);
 
                             String vysledok;

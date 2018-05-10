@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -20,6 +21,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     View view1;
@@ -58,7 +62,28 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText(computer.getLocation());
                 textView2.setText(String.valueOf(computer.getPCid()));
 
-                Snackbar.make(getWindow().getDecorView(), fromServer, Snackbar.LENGTH_LONG).show();
+                List<ComponentDataType> components = computer.getComponents();
+                String components_string = "";
+
+                for (int i=0; i < components.size(); i++)
+                {
+                    components_string += components.get(i).getComponentType() + ": " + components.get(i).getManufacurer() + " " +components.get(i).getModel() + "\n";
+                }
+
+                TextView componets_text = findViewById(R.id.components);
+                componets_text.setText(components_string);
+
+                /*ListView listView = findViewById(R.id.list);
+                List<ComponentDataType> data2= new ArrayList<ComponentDataType>();
+
+                //for (int i = 0; i < computer.getComponents().size(); i++) {
+                    data2 = computer.getComponents();
+                //}
+
+                CustomAdapter componentAdapter = new CustomAdapter(data2, getApplicationContext());
+                listView.setAdapter(componentAdapter);
+
+                Snackbar.make(getWindow().getDecorView(), fromServer, Snackbar.LENGTH_LONG).show();*/
 
                 //Intent i = new Intent(this, PCDetailActivity.class);
                 //i.putExtra("json", fromServer);

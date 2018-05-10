@@ -5,4 +5,5 @@
     <string name="result_text_default">Please focus the camera to code to be scanned</string>
     <string name="location">Location: </string>
     <string name="PCid">Computer ID: </string>
+    <string name="components">Components: </string>
 </resources>

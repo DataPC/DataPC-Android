@@ -9,13 +9,6 @@
     tools:showIn="@layout/activity_main">
 
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="298dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="319dp"
@@ -51,5 +44,24 @@
         android:layout_alignStart="@+id/textView2"
         android:layout_marginTop="112dp"
         android:text="@string/PCid" />
+
+    <TextView
+        android:id="@+id/components"
+        android:layout_width="323dp"
+        android:layout_height="257dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp"
+        android:text="N/A"
+        tools:ignore="InvalidId" />
+
+    <TextView
+        android:id="@+id/componentsSign"
+        android:layout_width="178dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="171dp"
+        android:text="@string/components" />
 
 </RelativeLayout>

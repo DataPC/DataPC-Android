@@ -8,11 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CustomAdapter extends ArrayAdapter<ComponentDataType> implements View.OnClickListener{
 
-    private ArrayList<ComponentDataType> dataSet;
+    private List<ComponentDataType> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -25,7 +26,7 @@ public class CustomAdapter extends ArrayAdapter<ComponentDataType> implements Vi
 
 
 
-    public CustomAdapter(ArrayList<ComponentDataType> data, Context context) {
+    public CustomAdapter(List<ComponentDataType> data, Context context) {
         super(context, R.layout.row_item, data);
         this.dataSet = data;
         this.mContext=context;
