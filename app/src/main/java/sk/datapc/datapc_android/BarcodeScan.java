@@ -12,24 +12,19 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
-
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.gms.vision.*;
-
 import android.content.Intent;
-
 import java.io.IOException;
 
 
 public class BarcodeScan extends AppCompatActivity {
-
-    SurfaceView cameraPreview;
-    TextView txtResult;
-    BarcodeDetector barcodeDetector;
-    CameraSource cameraSource;
-    final int RequestCameraPermissionID = 1001;
-
+    private SurfaceView cameraPreview;
+    private TextView txtResult;
+    private BarcodeDetector barcodeDetector;
+    private CameraSource cameraSource;
+    private final int RequestCameraPermissionID = 1001;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -39,6 +34,7 @@ public class BarcodeScan extends AppCompatActivity {
                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
+
                     try {
                         cameraSource.start(cameraPreview.getHolder());
                     } catch (IOException e) {
@@ -113,12 +109,10 @@ public class BarcodeScan extends AppCompatActivity {
                             setResult(RESULT_OK,data);
                             // zatvorenie aktivity
                             finish();
-
                         }
                     });
                 }
             }
         });
-
     }
 }

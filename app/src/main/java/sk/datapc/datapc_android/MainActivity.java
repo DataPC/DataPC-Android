@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.content.Intent;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -1,17 +1,13 @@
 package sk.datapc.datapc_android;
 
 import org.json.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class PCDataType {
     private int PCid;
     private String location;
     private List<ComponentDataType> components;
-
-
 
     public PCDataType(String json){
         try {
@@ -25,17 +21,16 @@ public class PCDataType {
             {
                 JSONObject component = arr.getJSONObject(i);
 
-                components.add(new ComponentDataType(component.getInt("id"), component.getString("ct_name"), component.getString("ma_name"), component.getString("m_name")));
-
+                components.add(new ComponentDataType(component.getInt("id"),
+                        component.getString("ct_name"),
+                        component.getString("ma_name"),
+                        component.getString("m_name")));
             }
-
-
 
         } catch (JSONException e) {
             e.printStackTrace();
             // TODO pridaj log
         }
-
     }
 
     public int getPCid() {
